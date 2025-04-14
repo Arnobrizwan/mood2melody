@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood2Melody 🎶</title>
+</head>
+<body>
+    <h1>AI Music from Mood</h1>
+    <form method="post">
+        <textarea name="user_text" rows="4" cols="50" placeholder="Describe your mood or day..."></textarea><br>
+        <button type="submit">Generate Music</button>
+    </form>
+
+    {% if mood %}
+        <h2>🧠 Detected Mood: {{ mood }}</h2>
+
+        {% if lyrics %}
+            <h3>🎤 AI-Generated Lyrics:</h3>
+            <ul>
+                {% for line in lyrics %}
+                    <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h3>🎧 Your Song:</h3>
+        <audio controls>
+            <source src="{{ music_file }}" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+        <br>
+        <a href="{{ url_for('download', filename=music_file.split('/')[-1]) }}">Download MP3</a>
+    {% endif %}
+</body>
+</html>
